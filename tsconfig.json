@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "outDir": "js",
+        "target": "es2020",
+        "module": "es2015",
+        "moduleResolution": "node",
+        "traceResolution": false,
+        "lib": ["es2020", "dom"],
+        "baseUrl": ".",
+        "paths": {
+        },
+        "strict": true,
+        "allowJs": false,
+        "noImplicitAny": true,
+        "sourceMap": true,
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
