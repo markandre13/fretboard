@@ -130,15 +130,15 @@ class FretboardView extends GenericView<GuitarChoordModel> {
   
         const nr = 9
         const c = this.circle(x, y, nr)
-        // c.setAttributeNS("", "fill", "#fff")
         c.classList.add("note")
-        // if (i==2 && j==5)
-        //   c.classList.add("play")
   
         c.onmousedown = (e: MouseEvent) => {
           // TODO: move into model
           if (this.model !== undefined) {
-            this.model.s[i] = j
+            if (this.model.s[i] == j)
+              this.model.s[i] = -1
+            else
+              this.model.s[i] = j
             this.model.modified.trigger()
           }
           // console.log(`mouse down on string ${i}, fret ${j}`)
