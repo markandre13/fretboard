@@ -21,5 +21,8 @@
     "rollup-plugin-typescript2": "^0.29.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "toad.js": "^0.0.11"
   }
 }
