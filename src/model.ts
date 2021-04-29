@@ -15,6 +15,14 @@ export class GuitarChoordModel extends Model {
         }
     }
 
+    toggleStringAtFret(stringNo: number, fretNo: number) {
+        if (this.fret[stringNo] == fretNo)
+            this.fret[stringNo] = -1
+        else
+            this.fret[stringNo] = fretNo
+        this.modified.trigger()
+    }
+
     getNoteOfString(s: number) {
         if (this.fret[5 - s] < 0)
             return -1

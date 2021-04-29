@@ -1,5 +1,9 @@
 import { bind } from 'toad.js'
 import { GuitarChoordModel } from './model'
+import { FretboardView } from './view'
+
+window.customElements.define("m13-fretboard", FretboardView)
+console.log('registered')
 
 export function main() {
   const x = {

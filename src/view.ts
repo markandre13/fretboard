@@ -109,30 +109,25 @@ export class FretboardView extends GenericView<GuitarChoordModel> {
 
         this.noteIndex = svg.childElementCount
 
-        for (let i = 0; i < 6; ++i) {
-            for (let j = 0; j < 23; ++j) {
-                const x = left + (j - 1) * sx + sx / 2.0
-                const y = top + i * sy
+        for (let stringNo = 0; stringNo < 6; ++stringNo) {
+            for (let fretNo = 0; fretNo < 23; ++fretNo) {
+                const x = left + (fretNo - 1) * sx + sx / 2.0
+                const y = top + stringNo * sy
 
                 const nr = 9
                 const c = this.circle(x, y, nr)
                 c.classList.add("note")
 
                 c.onmousedown = (e: MouseEvent) => {
-                    // TODO: move into model
                     if (this.model !== undefined) {
-                        if (this.model.fret[i] == j)
-                            this.model.fret[i] = -1
-                        else
-                            this.model.fret[i] = j
-                        this.model.modified.trigger()
+                        this.model.toggleStringAtFret(stringNo, fretNo)
                     }
                     // console.log(`mouse down on string ${i}, fret ${j}`)
                 }
 
                 svg.appendChild(c)
 
-                const name = this.noteName(this.guitarTuning[i] + j)
+                const name = this.noteName(this.guitarTuning[stringNo] + fretNo)
 
                 let dx = 0
                 switch (name.length) {
@@ -194,6 +189,3 @@ export class FretboardView extends GenericView<GuitarChoordModel> {
         return `${name[note % 12]}${octave - 2}`
     }
 }
-
-window.customElements.define("m13-fretboard", FretboardView)
-
