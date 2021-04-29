@@ -1,17 +1,24 @@
 import { GenericView, Model, TableModel, bind } from 'toad.js'
 
 class GuitarChoordModel extends Model {
-  s: Array<number>
-  constructor() {
+  tuning: Array<number>
+  fret: Array<number>
+
+  constructor(init?: Array<number>) {
     super()
-    this.s = new Array<number>()
-    this.s.fill(-1, 0, 5)
-    this.s[0] = 0
-    this.s[1] = 1
-    this.s[2] = 2
-    this.s[3] = 3
-    this.s[4] = 4
-    this.s[5] = 5
+    this.tuning = [ 64, 59, 55, 50, 45, 40 ]
+    if (init === undefined) {
+      this.fret = new Array<number>()
+      this.fret.fill(-1, 0, 5)
+    } else {
+      this.fret = Array.from(init)
+    }
+  }
+
+  getNoteOfString(s: number) {
+    if (this.fret[5-s] < 0)
+      return -1
+    return this.tuning[5-s] + this.fret[5-s]
   }
 }
 
@@ -44,7 +51,7 @@ class FretboardView extends GenericView<GuitarChoordModel> {
     this.markedIndices = []
 
     for(let i=0; i<6; ++i) {
-      const j = this.model.s[i]
+      const j = this.model.fret[i]
       if (j>=0) {
         const idx = this.noteIndex + (i * 23 + j) * 2
         this.markedIndices.push(idx)
@@ -135,10 +142,10 @@ class FretboardView extends GenericView<GuitarChoordModel> {
         c.onmousedown = (e: MouseEvent) => {
           // TODO: move into model
           if (this.model !== undefined) {
-            if (this.model.s[i] == j)
-              this.model.s[i] = -1
+            if (this.model.fret[i] == j)
+              this.model.fret[i] = -1
             else
-              this.model.s[i] = j
+              this.model.fret[i] = j
             this.model.modified.trigger()
           }
           // console.log(`mouse down on string ${i}, fret ${j}`)
@@ -212,9 +219,25 @@ class FretboardView extends GenericView<GuitarChoordModel> {
 
 window.customElements.define("m13-fretboard", FretboardView)
 
+const x = {
+  "C": [0, 1, 0, 2, 3, -1],
+  "Cm": [3, 4, 5, 5, 3, -1],
+  "C5": [-1, -1, 5, 5, 3, -1],
+  "C7": [0, 1, 3, 2, 3, -1],
+  "Cm7": [3, 4, 3, 5, 3, -1],
+
+  "C#": [-1, 6, 6, 6, 4, -1],
+  "C#m": [-1, 5, 6, 6, 4, -1],
+  "C#5": [-1, -1, 6, 6, 4, -1]
+}
+
 export function main() {
-  const choord = new GuitarChoordModel()
+  const choord = new GuitarChoordModel(x["C"])
   bind("choord", choord)
+
+  for(let i=0; i<6; ++i) {
+    console.log(`${i}: ${choord.getNoteOfString(i)}`)
+  }
 }
 
 
