@@ -1,4 +1,4 @@
-import { bind } from 'toad.js'
+import { bindModel } from 'toad.js'
 import { GuitarChoordModel } from './model'
 import { FretboardView } from './view'
 
@@ -19,7 +19,7 @@ export function main() {
   }
 
   const choord = new GuitarChoordModel(x["C"])
-  bind("choord", choord)
+  bindModel("choord", choord)
 
   for(let i=0; i<6; ++i) {
     console.log(`${i}: ${choord.getNoteOfString(i)}`)

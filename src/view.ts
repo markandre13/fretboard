@@ -1,7 +1,7 @@
-import { GenericView } from 'toad.js'
+import { ModelView } from 'toad.js'
 import { GuitarChoordModel } from './model'
 
-export class FretboardView extends GenericView<GuitarChoordModel> {
+export class FretboardView extends ModelView<GuitarChoordModel> {
 
     noteIndex!: number
     markedIndices: number[]
