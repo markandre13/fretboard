@@ -1,4 +1,4 @@
-import { Model } from 'toad.js'
+import { Model } from 'toad.js/model/Model'
 
 export class GuitarChoordModel extends Model {
     tuning: Array<number>

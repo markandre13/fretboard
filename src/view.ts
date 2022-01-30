@@ -1,4 +1,5 @@
-import { ModelView } from 'toad.js'
+import { ModelView } from 'toad.js/view/ModelView'
+
 import { GuitarChoordModel } from './model'
 
 export class FretboardView extends ModelView<GuitarChoordModel> {

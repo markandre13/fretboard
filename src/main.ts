@@ -1,4 +1,4 @@
-import { bindModel } from 'toad.js'
+import { bindModel } from 'toad.js/controller/globalController'
 import { GuitarChoordModel } from './model'
 import { FretboardView } from './view'
 

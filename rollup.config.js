@@ -15,7 +15,9 @@ export default {
         typescript({
             sourceMap: true
         }),
-        nodeResolve(),
+        nodeResolve({
+            modulesOnly: true
+        }),
         commonjs(),
         terser()
     ]
