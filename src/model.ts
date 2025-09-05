@@ -20,7 +20,7 @@ export class GuitarChoordModel extends Model {
             this.fret[stringNo] = -1
         else
             this.fret[stringNo] = fretNo
-        this.modified.trigger()
+        this.signal.emit()
     }
 
     getNoteOfString(s: number) {

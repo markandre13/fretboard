@@ -8,9 +8,16 @@
     <title>Fretboard</title>
     <meta name="description" content="a guitar fretboard utility"/>
     <meta name="copyright" content="Mark-André Hopf <mhopf@mark13.org>"/>
-    <script type="application/javascript" src="js/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="node_modules/toad.js/style/tx-static.css" />
+    <link rel="stylesheet" type="text/css" href="node_modules/toad.js/style/tx-dark.css" />
+    <link rel="stylesheet" type="text/css" href="node_modules/toad.js/style/tx.css" />
+        <script>
+        function run() {
+            import("./js/main.js")
+        }
+    </script>
   </head>
-  <body onload="fretboard.main()">
+  <body onload="run()">
     <h1>Fretboard</h1>
     <m13-fretboard model="choord"></m13-fretboard>
   </body>

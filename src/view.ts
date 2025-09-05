@@ -15,12 +15,12 @@ export class FretboardView extends ModelView<GuitarChoordModel> {
         this.shadowRoot!.appendChild(this.create())
     }
 
-    updateModel() {
+    override updateModel() {
         if (!this.model) // FIXME: handle this in the caller?
             return
     }
 
-    updateView() {
+    override updateView() {
         if (!this.model) // FIXME: handle this in the caller?
             return
 
@@ -48,17 +48,14 @@ export class FretboardView extends ModelView<GuitarChoordModel> {
           font-family: sans-serif;
           font-size: 10px;
         }
-  
         .note {
-          fill: #fff;
+          fill: none;
         }
-  
         .note.play {
-          fill: #000;
-        }
-  
-        .note.play + text {
           fill: #fff;
+        }
+        .note.play + text {
+          fill: #000;
         }
       `
         return style
@@ -79,14 +76,15 @@ export class FretboardView extends ModelView<GuitarChoordModel> {
 
         for (let i = 0; i < 6; ++i) {
             const y = top + i * sy
-            svg.appendChild(this.line(left, y, left + 22 * sx, y))
+            svg.appendChild(this.line(left, y, left + 22 * sx, y, "#666", `${(i/2)+1}px`))
         }
 
         for (let i = 0; i < 23; ++i) {
             const x = left + i * sx
             const l = this.line(x, top, x, top + 5 * sy)
-            if (i == 0)
+            if (i == 0) {
                 l.setAttributeNS("", "stroke-width", "3")
+            }
             svg.appendChild(l)
             const cx = left + i * sx + sx / 2.0
             const cy = top + sy * 2.5
@@ -146,9 +144,10 @@ export class FretboardView extends ModelView<GuitarChoordModel> {
         return svg
     }
 
-    line(x1: number, y1: number, x2: number, y2: number): SVGLineElement {
+    line(x1: number, y1: number, x2: number, y2: number, stroke: string = "currentcolor", strokeWidth: string = "1px"): SVGLineElement {
         const node = document.createElementNS("http://www.w3.org/2000/svg", "line")
-        node.setAttributeNS("", "stroke", "#000")
+        node.setAttributeNS("", "stroke", stroke)
+        node.setAttributeNS("", "stroke-width", strokeWidth)
         node.setAttributeNS("", "x1", `${x1}`)
         node.setAttributeNS("", "y1", `${y1}`)
         node.setAttributeNS("", "x2", `${x2}`)
@@ -156,9 +155,10 @@ export class FretboardView extends ModelView<GuitarChoordModel> {
         return node
     }
 
-    circle(cx: number, cy: number, r: number): SVGCircleElement {
+    circle(cx: number, cy: number, r: number, fill: string = "currentcolor"): SVGCircleElement {
         const node = document.createElementNS("http://www.w3.org/2000/svg", "circle")
-        node.setAttributeNS("", "stroke", "#000")
+        node.setAttributeNS("", "stroke", "none")
+        node.setAttributeNS("", "fill", fill)
         node.setAttributeNS("", "cx", `${cx}`)
         node.setAttributeNS("", "cy", `${cy}`)
         node.setAttributeNS("", "r", `${r}`)
@@ -167,7 +167,7 @@ export class FretboardView extends ModelView<GuitarChoordModel> {
 
     text(x: number, y: number, text: string): SVGTextElement {
         const node = document.createElementNS("http://www.w3.org/2000/svg", "text")
-        node.setAttributeNS("", "fill", "#000")
+        node.setAttributeNS("", "fill", "currentcolor")
         node.setAttributeNS("", "x", `${x}`)
         node.setAttributeNS("", "y", `${y}`)
         node.appendChild(document.createTextNode(text))

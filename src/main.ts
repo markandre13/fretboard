@@ -5,7 +5,7 @@ import { FretboardView } from './view'
 window.customElements.define("m13-fretboard", FretboardView)
 console.log('registered')
 
-export function main() {
+function main() {
   const x = {
     "C": [0, 1, 0, 2, 3, -1],
     "Cm": [3, 4, 5, 5, 3, -1],
@@ -25,3 +25,5 @@ export function main() {
     console.log(`${i}: ${choord.getNoteOfString(i)}`)
   }
 }
+
+main()
