@@ -7,8 +7,8 @@ export class FretboardView extends ModelView<GuitarChoordModel> {
     noteIndex!: number
     markedIndices: number[]
 
-    constructor() {
-        super()
+    constructor(props: {model: GuitarChoordModel}) {
+        super(props)
         this.markedIndices = []
         this.attachShadow({ mode: 'open' })
         this.shadowRoot!.appendChild(document.importNode(this.getStyle(), true))
@@ -190,3 +190,4 @@ export class FretboardView extends ModelView<GuitarChoordModel> {
         return `${name[note % 12]}${octave - 2}`
     }
 }
+FretboardView.define("m13-fretboard", FretboardView)
